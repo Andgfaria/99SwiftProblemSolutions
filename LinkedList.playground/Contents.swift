@@ -182,6 +182,25 @@ extension LinkedList where T: Equatable {
     
 }
 
-let list = LinkedList("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
-list?.compress()
-print(list?.description ?? "")
+//P9
+extension LinkedList where T: Equatable {
+    
+    var packed: LinkedList<LinkedList<T>>? {
+        var newLists: [LinkedList<T>] = []
+        var currentNode: LinkedListNode<T>? = head
+        while let node = currentNode {
+            var subListElements: [T] = [node.value]
+            var currentSubnode: LinkedListNode<T>? = node
+            while let subnode = currentSubnode, subnode.value == subnode.next?.value {
+                subListElements.append(subnode.value)
+                currentSubnode = subnode.next
+            }
+            if let newList = LinkedList(subListElements) {
+                newLists.append(newList)
+            }
+            currentNode = currentSubnode?.next
+        }
+        return LinkedList<LinkedList<T>>(newLists)
+    }
+    
+}
