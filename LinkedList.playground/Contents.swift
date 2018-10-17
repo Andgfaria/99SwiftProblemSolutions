@@ -204,3 +204,41 @@ extension LinkedList where T: Equatable {
     }
     
 }
+
+//P10
+extension LinkedList where T: Equatable {
+    
+    var encoded: LinkedList<(Int, T)>? {
+        guard let packedList = packed else { return nil }
+        var tuples: [(Int, T)] = []
+        var currentNode: LinkedListNode<LinkedList<T>>? = packedList.head
+        while let node = currentNode {
+            tuples.append((node.value.length, node.value.head.value))
+            currentNode = currentNode?.next
+        }
+        return LinkedList<(Int, T)>(tuples)
+    }
+    
+}
+
+//P11
+extension LinkedList where T: Equatable {
+    
+    var encodedWithModification: LinkedList<Any>? {
+        guard let packedList = packed else { return nil }
+        var elements: [Any] = []
+        var currentNode: LinkedListNode<LinkedList<T>>? = packedList.head
+        while let node = currentNode {
+            let length = node.value.length
+            let value = node.value.head.value
+            if length > 1 {
+                elements.append((length, value))
+            } else {
+                elements.append(value)
+            }
+            currentNode = currentNode?.next
+        }
+        return LinkedList<(Any)>(elements)
+    }
+    
+}
