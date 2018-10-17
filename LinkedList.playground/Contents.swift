@@ -38,6 +38,24 @@ class LinkedListNode<T> {
     }
 }
 
+
+extension LinkedList: CustomStringConvertible {
+    
+    var description: String {
+        var string = "List("
+        var currentNode: LinkedListNode<T>? = head
+        while let node = currentNode {
+            string += String(describing: node.value)
+            if node.next != nil {
+                string += ", "
+            }
+            currentNode = node.next
+        }
+        return string + ")"
+    }
+    
+}
+
 //P1
 extension LinkedList {
     
@@ -149,3 +167,21 @@ extension LinkedList where T: Equatable {
     
 }
 
+//P8
+extension LinkedList where T: Equatable {
+    
+    func compress() {
+        var currentNode: LinkedListNode<T>? = head
+        while let node = currentNode {
+            while node.value == node.next?.value {
+                node.next = node.next?.next
+            }
+            currentNode = node.next
+        }
+    }
+    
+}
+
+let list = LinkedList("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
+list?.compress()
+print(list?.description ?? "")
