@@ -242,3 +242,38 @@ extension LinkedList where T: Equatable {
     }
     
 }
+
+//P14
+extension LinkedList {
+    
+    func duplicate() {
+        var currentNode: LinkedListNode<T>? = head
+        while let node = currentNode {
+            let next = currentNode?.next
+            let copy = LinkedListNode(value: node.value, leftNode: node)
+            copy.next = next
+            currentNode = next
+        }
+    }
+    
+}
+
+//P15
+extension LinkedList {
+    
+    func duplicate(_ times: Int) {
+        var currentNode: LinkedListNode<T>? = head
+        while let node = currentNode {
+            let next = currentNode?.next
+            var parentCopy = node
+            for _ in 1..<times {
+                let newCopy = LinkedListNode(value: parentCopy.value, leftNode: parentCopy)
+                parentCopy = newCopy
+            }
+            parentCopy.next = next
+            currentNode = next
+        }
+    }
+    
+}
+
