@@ -293,6 +293,32 @@ extension LinkedList {
     
 }
 
+//P16
+extension LinkedList {
+    
+    func drop(_ index: Int) {
+        guard index >= 0 else { return }
+        
+        if index == 0 {
+            if let next = head.next {
+                head = next
+            }
+            return
+        }
+        
+        var currentIndex = 0
+        var currentNode: LinkedListNode<T>? = head
+        while let node = currentNode, currentIndex < index - 1{
+            currentNode = node.next
+            currentIndex += 1
+        }
+        if let node = currentNode, currentIndex == index - 1 {
+            node.next = node.next?.next
+        }
+    }
+    
+}
+
 //P21
 extension LinkedList {
     
