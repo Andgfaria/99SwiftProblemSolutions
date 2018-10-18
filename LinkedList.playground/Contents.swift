@@ -3,6 +3,10 @@ import UIKit
 class LinkedList<T> {
     var head: LinkedListNode<T>
     
+    init(head: LinkedListNode<T>) {
+        self.head = head
+    }
+    
     init?(_ list: T...) {
         guard let head = LinkedList<T>.headNode(with: list) else { return nil }
         self.head = head
@@ -289,6 +293,52 @@ extension LinkedList {
             parentCopy.next = next
             currentNode = next
         }
+    }
+    
+}
+
+//P16
+extension LinkedList {
+    
+    func drop(every nthIndex: Int) {
+        guard nthIndex >= 0 else { return }
+        var currentIndex = 0
+        var currentNode: LinkedListNode<T>? = head
+        while currentNode != nil {
+            if currentIndex == nthIndex - 2 {
+                currentNode?.next = currentNode?.next?.next
+                currentIndex = 0
+            } else {
+                currentIndex += 1
+            }
+            currentNode = currentNode?.next
+        }
+    }
+    
+}
+
+//P17
+extension LinkedList {
+    
+    func splitted(at index: UInt) -> LinkedList<LinkedList<T>>? {
+        var currentIndex: UInt = 0
+        var currentNode: LinkedListNode<T>? = head
+        var leftElements: [T] = []
+        var rightElements: [T] = []
+        
+        while let node = currentNode, currentIndex < index {
+            leftElements.append(node.value)
+            currentNode = node.next
+            currentIndex += 1
+        }
+        
+        while let node = currentNode {
+            rightElements.append(node.value)
+            currentNode = node.next
+        }
+        
+        guard let leftList = LinkedList(leftElements), let rightList = LinkedList(rightElements) else { return nil }
+        return LinkedList<LinkedList<T>>(leftList, rightList)
     }
     
 }
