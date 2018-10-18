@@ -277,3 +277,32 @@ extension LinkedList {
     
 }
 
+//P21
+extension LinkedList {
+    
+    func insert(_ element: T, at index: UInt) {
+        if index == 0 {
+            let newNode = LinkedListNode(value: element)
+            newNode.next = head
+            head = newNode
+            return
+        }
+        
+        var currentNode: LinkedListNode<T>? = head
+        var currentIndex: UInt = 0
+        
+        while currentNode != nil, currentIndex < index - 1 {
+            currentNode = currentNode?.next
+            currentIndex += 1
+        }
+        if let targetNode = currentNode, currentIndex == index - 1 {
+            let next = targetNode.next
+            let newNode = LinkedListNode(value: element, leftNode: targetNode)
+            newNode.next = next
+            targetNode.next = newNode
+        }
+    }
+    
+}
+
+
