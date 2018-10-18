@@ -293,10 +293,10 @@ extension LinkedList {
     
 }
 
-//P16
+//P20
 extension LinkedList {
     
-    func drop(_ index: Int) {
+    func remove(at index: Int) {
         guard index >= 0 else { return }
         
         if index == 0 {
