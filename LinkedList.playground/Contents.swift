@@ -243,6 +243,22 @@ extension LinkedList where T: Equatable {
     
 }
 
+//P12
+extension LinkedList {
+    
+    var decoded: LinkedList<Any>? {
+        var elements: [Any] = []
+        var currentNode: LinkedListNode<T>? = head
+        while let node = currentNode {
+            guard let tuple = node.value as? (Int, Any) else { return nil }
+            elements += [Any](repeating: tuple.1, count: tuple.0)
+            currentNode = node.next
+        }
+        return LinkedList<Any>(elements)
+    }
+    
+}
+
 //P14
 extension LinkedList {
     
@@ -304,5 +320,3 @@ extension LinkedList {
     }
     
 }
-
-
