@@ -343,6 +343,27 @@ extension LinkedList {
     
 }
 
+//P18
+extension LinkedList {
+    
+    func sliced(startIndex: UInt, endIndex: UInt) -> LinkedList<T>? {
+        var elements: [T] = []
+        var currentIndex: UInt = 0
+        var currentNode: LinkedListNode<T>? = head
+        while currentNode != nil, currentIndex < startIndex {
+            currentNode = currentNode?.next
+            currentIndex += 1
+        }
+        while let node = currentNode, currentIndex < endIndex {
+            elements.append(node.value)
+            currentIndex += 1
+            currentNode = node.next
+        }
+        return LinkedList(elements)
+    }
+    
+}
+
 //P20
 extension LinkedList {
     
